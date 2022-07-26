@@ -6,7 +6,7 @@ class RoundedButtonWidget extends StatelessWidget {
   final double height;
   final Function onpressed;
   bool useIcon;
-  String iconUrl;
+  IconData? icon;
 
   RoundedButtonWidget(
       {required this.buttonText,
@@ -14,7 +14,7 @@ class RoundedButtonWidget extends StatelessWidget {
       required this.height,
       required this.onpressed,
       this.useIcon = false,
-      this.iconUrl = ''});
+      this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,7 @@ class RoundedButtonWidget extends StatelessWidget {
                   Text(buttonText,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Image(
-                    image: AssetImage('assets/' + iconUrl),
-                    width: 25,
-                    height: 25,
-                  )
+                  Icon(this.icon)
                 ],
               )
             : Text(
