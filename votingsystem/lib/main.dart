@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/Utils.dart';
 import 'package:votingsystem/views/auth/LoginPage.dart';
+import 'package:votingsystem/views/auth/LoginPageScan.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,9 +36,17 @@ class MyApp extends StatelessWidget {
         Widget page;
         if (settings.name == routeLoginView) {
           page = const LoginPage();
+        } else if (settings.name!.startsWith(routeLoginViewScan)) {
+          page = LoginPageScan();
         } else {
           throw Exception('Unknown route: ${settings.name}');
         }
+        return MaterialPageRoute<dynamic>(
+          builder: (context) {
+            return page;
+          },
+          settings: settings,
+        );
       },
       home: const LoginPage(),
     );
