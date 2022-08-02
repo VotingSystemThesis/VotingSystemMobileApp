@@ -83,6 +83,15 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_barcode_scanner:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "260a2d884f69ec70e1296323f0feb8bd5ffce087"
+      url: "https://github.com/LinoMacKay/flutter_barcode_scanner"
+    source: git
+    version: "2.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
