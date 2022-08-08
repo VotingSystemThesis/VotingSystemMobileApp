@@ -4,6 +4,7 @@ import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/Utils.dart';
 import 'package:votingsystem/views/auth/LoginPage.dart';
 import 'package:votingsystem/views/auth/LoginPageScan.dart';
+import 'package:votingsystem/views/core/Home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
           page = const LoginPage();
         } else if (settings.name!.startsWith(routeLoginViewScan)) {
           page = LoginPageScan();
+        } else if (settings.name!.startsWith(routeHome)) {
+          page = Home();
         } else {
           throw Exception('Unknown route: ${settings.name}');
         }

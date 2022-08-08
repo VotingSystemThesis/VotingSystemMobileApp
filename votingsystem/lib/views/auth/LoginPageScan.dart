@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:votingsystem/core/bloc/Authentication.dart';
+import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/Utils.dart';
 import 'package:votingsystem/views/common/FormButton.dart';
 import 'package:votingsystem/views/common/FormTitle.dart';
@@ -107,6 +108,8 @@ class _LoginPageScanState extends State<LoginPageScan>
       });
       if (isAuthenticated) {
         _playAnimation();
+        await Future.delayed(Duration(seconds: 2));
+        Utils.mainNavigator.currentState!.pushReplacementNamed(routeHome);
       }
     }
   }
@@ -124,6 +127,11 @@ class _LoginPageScanState extends State<LoginPageScan>
       });
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
+    }
+    if (isAuthenticated) {
+      _playAnimation();
+      await Future.delayed(Duration(seconds: 2));
+      Utils.mainNavigator.currentState!.pushReplacementNamed(routeHome);
     }
   }
 

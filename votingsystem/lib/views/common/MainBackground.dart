@@ -4,9 +4,15 @@ import 'package:votingsystem/views/common/FormTitle.dart';
 class MainBackground extends StatelessWidget {
   Widget child;
   bool useBackButton;
+  double distribution;
+  bool withPadding;
   Function? onPress;
   MainBackground(
-      {required this.child, this.useBackButton = false, this.onPress});
+      {required this.child,
+      this.useBackButton = false,
+      this.distribution = 0.8,
+      this.onPress,
+      this.withPadding = true});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class MainBackground extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-            padding: EdgeInsets.all(15),
+            padding: withPadding ? EdgeInsets.all(15) : EdgeInsets.all(0),
             width: screenWidth,
             height: screenHeight,
             color: Color.fromRGBO(225, 228, 253, 1),
@@ -45,7 +51,8 @@ class MainBackground extends StatelessWidget {
                       ],
                     ),
                   ),
-                Container(height: screenHeight * 0.8, child: this.child)
+                Container(
+                    height: screenHeight * distribution, child: this.child)
               ],
             ))),
       ),
