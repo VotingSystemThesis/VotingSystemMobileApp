@@ -4,6 +4,7 @@ import 'package:votingsystem/utils/Utils.dart';
 import 'package:votingsystem/views/common/IconList.dart';
 import 'package:votingsystem/views/common/MainBackground.dart';
 import 'package:votingsystem/views/core/SecondHome.dart';
+import 'package:votingsystem/views/profile/ProfilePage.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -22,7 +23,9 @@ class _HomeState extends State<Home> {
       case routeSecondHome:
         page = SecondHome();
         break;
-
+      case routeProfile:
+        page = UserProfilePage();
+        break;
       default:
         print("NOMBRE SUBRUTA: " + settings.name!);
     }
@@ -51,17 +54,29 @@ class _HomeState extends State<Home> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Icon(
-          Icons.home,
-          size: 35,
+        GestureDetector(
+          onTap: () {
+            Utils.homeNavigator.currentState!
+                .pushReplacementNamed(routeSecondHome);
+          },
+          child: Icon(
+            Icons.home,
+            size: 35,
+          ),
         ),
         Icon(
           Icons.article,
           size: 35,
         ),
-        Icon(
-          Icons.person,
-          size: 35,
+        GestureDetector(
+          onTap: () {
+            Utils.homeNavigator.currentState!
+                .pushReplacementNamed(routeProfile);
+          },
+          child: Icon(
+            Icons.person,
+            size: 35,
+          ),
         )
       ],
     );
