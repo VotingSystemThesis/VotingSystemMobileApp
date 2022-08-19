@@ -8,7 +8,10 @@ class FormTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       this.text,
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+      style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+          overflow: TextOverflow.ellipsis),
     );
   }
 }
