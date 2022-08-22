@@ -5,6 +5,7 @@ import 'package:votingsystem/views/common/IconList.dart';
 import 'package:votingsystem/views/common/MainBackground.dart';
 import 'package:votingsystem/views/core/SecondHome.dart';
 import 'package:votingsystem/views/profile/ProfilePage.dart';
+import 'package:votingsystem/views/political parties/political_parties_list_view.dart';
 
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
@@ -25,6 +26,9 @@ class _HomeState extends State<Home> {
         break;
       case routeProfile:
         page = UserProfilePage();
+        break;
+      case routePoliticalParties:
+        page = PoliticalPartiesListView();
         break;
       default:
         print("NOMBRE SUBRUTA: " + settings.name!);
@@ -64,10 +68,14 @@ class _HomeState extends State<Home> {
             size: 35,
           ),
         ),
-        Icon(
+        GestureDetector(
+          onTap: () => Utils.homeNavigator.currentState!.pushNamed(routePoliticalParties),
+          child: Icon(
           Icons.article,
           size: 35,
         ),
+        ),
+        
         GestureDetector(
           onTap: () {
             Utils.homeNavigator.currentState!
