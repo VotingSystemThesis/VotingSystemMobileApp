@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:votingsystem/router/routes.dart';
-import 'package:votingsystem/utils/Utils.dart';
-import 'package:votingsystem/views/common/FormButton.dart';
-import 'package:votingsystem/views/common/MainBackground.dart';
-import 'package:votingsystem/views/common/FormTitle.dart';
+import 'package:votingsystem/utils/utils.dart';
+import 'package:votingsystem/views/common/form_button.dart';
+import 'package:votingsystem/views/common/main_background.dart';
+import 'package:votingsystem/views/common/form_title.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FormTitle(
+              const FormTitle(
                 text: "DNI",
               ),
               SizedBox(
@@ -32,22 +32,24 @@ class LoginPage extends StatelessWidget {
                     if (value!.isEmpty) {
                       return "Ingrese su DNI";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(width: 1, color: Colors.black),
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.black),
                       ),
                       hintText: 'Ingrese su DNI',
-                      hintStyle: TextStyle(fontWeight: FontWeight.bold),
+                      hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                       labelStyle: TextStyle(
                           color: Theme.of(context).textTheme.bodyText1!.color)),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              FormTitle(
+              const FormTitle(
                 text: "Fecha de emisión",
               ),
               SizedBox(
@@ -62,23 +64,25 @@ class LoginPage extends StatelessWidget {
                     if (value!.isEmpty) {
                       return "Ingrese la fecha de emisión del DNI";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
-                      suffixIcon: Icon(
+                      suffixIcon: const Icon(
                         Icons.calendar_today,
                         color: Colors.black,
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide(width: 1, color: Colors.black),
+                        borderSide:
+                            const BorderSide(width: 1, color: Colors.black),
                       ),
                       hintText: 'dd/mm/yyyy',
-                      hintStyle: TextStyle(fontWeight: FontWeight.bold),
+                      hintStyle: const TextStyle(fontWeight: FontWeight.bold),
                       labelStyle: TextStyle(
                           color: Theme.of(context).textTheme.bodyText1!.color)),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               RoundedButtonWidget(
@@ -106,22 +110,22 @@ class LoginPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage("assets/logo.png"),
+            image: const AssetImage("assets/logo.png"),
             width: screenWidth * 0.4,
             height: screenHeight * 0.21,
           ),
-          Text(
+          const Text(
             "INICIAR SESIÓN",
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             elevation: 4,
-            child: Container(
+            child: SizedBox(
               width: screenWidth,
               height: screenHeight * 0.37,
               child: loginForm(context),

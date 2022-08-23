@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:votingsystem/router/routes.dart';
-import 'package:votingsystem/utils/Utils.dart';
-import 'package:votingsystem/views/auth/LoginPage.dart';
-import 'package:votingsystem/views/auth/LoginPageScan.dart';
-import 'package:votingsystem/views/core/Home.dart';
+import 'package:votingsystem/utils/utils.dart';
+import 'package:votingsystem/views/auth/login_page.dart';
+import 'package:votingsystem/views/auth/login_page_scan.dart';
+import 'package:votingsystem/views/core/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,9 +38,9 @@ class MyApp extends StatelessWidget {
         if (settings.name == routeLoginView) {
           page = const LoginPage();
         } else if (settings.name!.startsWith(routeLoginViewScan)) {
-          page = LoginPageScan();
+          page = const LoginPageScan();
         } else if (settings.name!.startsWith(routeHome)) {
-          page = Home();
+          page = const Home();
         } else {
           throw Exception('Unknown route: ${settings.name}');
         }

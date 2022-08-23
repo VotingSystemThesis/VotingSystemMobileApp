@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class IconList extends StatelessWidget {
-  IconData icon;
-  bool isSelected;
-  IconList({required this.icon, this.isSelected = false});
+  final IconData icon;
+  final bool isSelected;
+  const IconList({
+    Key? key,
+    required this.icon,
+    this.isSelected = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

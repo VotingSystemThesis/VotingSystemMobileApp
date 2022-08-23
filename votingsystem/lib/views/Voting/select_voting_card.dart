@@ -10,15 +10,15 @@ class SelectVotingCard extends StatelessWidget {
     return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
+            image: const DecorationImage(
                 fit: BoxFit.cover,
                 image: NetworkImage(
                     'https://cdn.www.gob.pe/uploads/document/file/2862237/standard_ONPE%20mantiene%20prohibici%C3%B3n%20del%20uso%20de%20celulares%20y%20c%C3%A1maras%20fotogr%C3%A1ficas%20y%20de%20video%20en%20las%20c%C3%A1maras%20secretas.png.png'))),
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         width: screenWidth,
         height: screenHeight * 0.4,
         child: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               gradient: LinearGradient(begin: Alignment.bottomRight, colors: [
@@ -28,7 +28,7 @@ class SelectVotingCard extends StatelessWidget {
               ])),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
+            children: const [
               Text(
                 "Elecciones Distritales",
                 style: TextStyle(color: Colors.white, fontSize: 25),

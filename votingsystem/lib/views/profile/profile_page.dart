@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:votingsystem/views/common/FormTitle.dart';
-import 'package:votingsystem/views/common/MainBackground.dart';
+//import 'package:votingsystem/views/common/form_title.dart';
+import 'package:votingsystem/views/common/main_background.dart';
 
 class UserProfilePage extends StatefulWidget {
-  UserProfilePage({Key? key}) : super(key: key);
+  const UserProfilePage({Key? key}) : super(key: key);
 
   @override
   State<UserProfilePage> createState() => _UserProfilePageState();
@@ -13,7 +13,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   Widget profileDataTitle(text) {
     return Text(
       text,
-      style: TextStyle(
+      style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 15,
           overflow: TextOverflow.ellipsis),
@@ -24,13 +24,13 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return Text(
       text,
       textAlign: TextAlign.left,
-      style: TextStyle(overflow: TextOverflow.ellipsis),
+      style: const TextStyle(overflow: TextOverflow.ellipsis),
     );
   }
 
   Widget singleRow(title, text) {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       child: Row(
         children: [
           Column(
@@ -44,7 +44,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   Widget doubleRow(title1, text1, title2, text2) {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       width: double.infinity,
       child: Row(
         children: [
@@ -74,25 +74,33 @@ class _UserProfilePageState extends State<UserProfilePage> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    var screenHeight = MediaQuery.of(context).size.height;
+    //var screenHeight = MediaQuery.of(context).size.height;
     return MainBackground(
-      distribution: 0.97,
+      distribution: 0.82,
       withPadding: false,
       child: Column(
         children: [
           Container(
             width: screenWidth,
-            padding: EdgeInsets.all(50),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Text(
+                const Text(
                   "Perfil",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
                 CircleAvatar(
-                    radius: screenWidth * 0.165,
-                    backgroundImage: NetworkImage(
-                        'https://pps.whatsapp.net/v/t61.24694-24/290134819_987158865306615_8330649461858456400_n.jpg?ccb=11-4&oh=01_AVwC7iGLLZXsSl69Br4ELIA80gscK2lEPUsVbSHeYkzgCg&oe=630BBA31')),
+                  radius: screenWidth * 0.165,
+                  backgroundImage: const NetworkImage(
+                      'https://pps.whatsapp.net/v/t61.24694-24/290134819_987158865306615_8330649461858456400_n.jpg?ccb=11-4&oh=01_AVwC7iGLLZXsSl69Br4ELIA80gscK2lEPUsVbSHeYkzgCg&oe=630BBA31'),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Text(
+                  "Nombre Apell1 Apell2",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )
               ],
             ),
           ),
@@ -101,14 +109,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
               borderRadius: BorderRadius.circular(30),
               elevation: 10,
               child: Container(
-                padding: EdgeInsets.all(30),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                 width: screenWidth,
                 //height: screenHeight * 0.65,
                 child: Column(
                   children: [
-                    singleRow("Nombre", "text"),
-                    doubleRow("Apellido Materno", "text1", "Apellido Paterno",
-                        "text2"),
+                    // singleRow("Nombre", "text"),
+                    // doubleRow("Apellido Materno", "text1", "Apellido Paterno",
+                    //     "text2"),
                     doubleRow("Edad", "text1", "Sexo", "text2"),
                     doubleRow("Nacionalidad", "text1", "Estado Civil", "text2"),
                     doubleRow("Nacimiento", "text1", "Ubigeo", "text2"),

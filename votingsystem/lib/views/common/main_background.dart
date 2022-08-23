@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:votingsystem/views/common/FormTitle.dart';
+import 'package:votingsystem/views/common/form_title.dart';
 
 class MainBackground extends StatelessWidget {
-  Widget child;
-  bool useBackButton;
-  double distribution;
-  bool withPadding;
-  Function? onPress;
-  MainBackground(
-      {required this.child,
+  final Widget child;
+  final bool useBackButton;
+  final double distribution;
+  final bool withPadding;
+  final Function? onPress;
+
+  const MainBackground(
+      {Key? key,
+      required this.child,
       this.useBackButton = false,
       this.distribution = 0.8,
       this.onPress,
-      this.withPadding = true});
+      this.withPadding = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,38 +24,39 @@ class MainBackground extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-            padding: withPadding ? EdgeInsets.all(15) : EdgeInsets.all(0),
+            padding: withPadding
+                ? const EdgeInsets.all(15)
+                : const EdgeInsets.all(0),
             width: screenWidth,
             height: screenHeight,
-            color: Color.fromRGBO(225, 228, 253, 1),
+            color: const Color.fromRGBO(225, 228, 253, 1),
             child: SingleChildScrollView(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (useBackButton)
-                  Container(
+                  SizedBox(
                     width: screenWidth,
                     height: 30,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         IconButton(
-                          padding: EdgeInsets.all(0),
+                          padding: const EdgeInsets.all(0),
                           iconSize: 30,
                           onPressed: () {
-                            this.onPress!();
+                            onPress!();
                           },
-                          icon: Icon(Icons.arrow_back_ios_new),
+                          icon: const Icon(Icons.arrow_back_ios_new),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        FormTitle(text: "Volver")
+                        const FormTitle(text: "Volver")
                       ],
                     ),
                   ),
-                Container(
-                    height: screenHeight * distribution, child: this.child)
+                SizedBox(height: screenHeight * distribution, child: child)
               ],
             ))),
       ),

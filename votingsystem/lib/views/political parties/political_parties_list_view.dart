@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import '../../models/political_party.dart';
-import '../common/MainBackground.dart';
+import '../common/main_background.dart';
 
-class PoliticalPartiesListView extends StatelessWidget {
-  PoliticalPartiesListView({Key? key}) : super(key: key);
-
-  List<PoliticalParty> politicalParties = getPoliticalParties();
+class PoliticalPartiesListView extends StatefulWidget {
+  const PoliticalPartiesListView({Key? key}) : super(key: key);
 
   static List<PoliticalParty> getPoliticalParties() {
     const data = [
@@ -53,12 +49,21 @@ class PoliticalPartiesListView extends StatelessWidget {
   }
 
   @override
+  State<PoliticalPartiesListView> createState() =>
+      _PoliticalPartiesListViewState();
+}
+
+class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
+  List<PoliticalParty> politicalParties =
+      PoliticalPartiesListView.getPoliticalParties();
+
+  @override
   Widget build(BuildContext context) {
     return MainBackground(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Partidos Políticos",
             style: TextStyle(
                 fontWeight: FontWeight.bold,

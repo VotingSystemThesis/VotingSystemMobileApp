@@ -1,19 +1,19 @@
-import 'package:biometric_storage/biometric_storage.dart';
+//import 'package:biometric_storage/biometric_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:votingsystem/core/bloc/Authentication.dart';
+import 'package:votingsystem/core/bloc/authentication.dart';
 import 'package:votingsystem/router/routes.dart';
-import 'package:votingsystem/utils/Utils.dart';
-import 'package:votingsystem/views/common/FormButton.dart';
-import 'package:votingsystem/views/common/FormTitle.dart';
-import 'package:votingsystem/views/common/MainBackground.dart';
+import 'package:votingsystem/utils/utils.dart';
+import 'package:votingsystem/views/common/form_button.dart';
+import 'package:votingsystem/views/common/form_title.dart';
+import 'package:votingsystem/views/common/main_background.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:local_auth_ios/local_auth_ios.dart';
 
 class LoginPageScan extends StatefulWidget {
-  LoginPageScan({Key? key}) : super(key: key);
+  const LoginPageScan({Key? key}) : super(key: key);
 
   @override
   State<LoginPageScan> createState() => _LoginPageScanState();
@@ -41,7 +41,7 @@ class _LoginPageScanState extends State<LoginPageScan>
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(
+        curve: const Interval(
           0.0,
           0.2,
           curve: Curves.ease,
@@ -55,7 +55,7 @@ class _LoginPageScanState extends State<LoginPageScan>
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval(
+        curve: const Interval(
           0.2,
           1.0,
           curve: Curves.ease,
@@ -91,24 +91,24 @@ class _LoginPageScanState extends State<LoginPageScan>
         localizedReason:
             'Por favor coloque su huella para continuar con la votación',
         authMessages: <AuthMessages>[
-          AndroidAuthMessages(
+          const AndroidAuthMessages(
             signInTitle: 'Se requiere su huella dactilar',
             cancelButton: 'Cancelar',
           ),
-          IOSAuthMessages(
+          const IOSAuthMessages(
             cancelButton: 'Cancelar',
           ),
         ],
         options: const AuthenticationOptions(biometricOnly: true),
       );
 
-      var resposne = await authController.authenticate(AuthMode.FINGERPRINT);
+      var resposne = await authController.authenticate(AuthMode.fingerprint);
       setState(() {
         isAuthenticated = resposne;
       });
       if (isAuthenticated) {
         _playAnimation();
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
         Utils.mainNavigator.currentState!.pushReplacementNamed(routeHome);
       }
     }
@@ -120,7 +120,7 @@ class _LoginPageScanState extends State<LoginPageScan>
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
 
-      authController.authenticate(AuthMode.BARCODE).then((value) {
+      authController.authenticate(AuthMode.barcode).then((value) {
         setState(() {
           isAuthenticated = value;
         });
@@ -130,7 +130,7 @@ class _LoginPageScanState extends State<LoginPageScan>
     }
     if (isAuthenticated) {
       _playAnimation();
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       Utils.mainNavigator.currentState!.pushReplacementNamed(routeHome);
     }
   }
@@ -142,17 +142,17 @@ class _LoginPageScanState extends State<LoginPageScan>
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           elevation: 4,
-          child: Container(
+          child: SizedBox(
             width: screenWidth * 0.8,
             height: screenHeight * 0.08,
-            child: Center(
+            child: const Center(
               child: FormTitle(
                 text: "Verifica tus datos",
               ),
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         RoundedButtonWidget(
@@ -165,11 +165,11 @@ class _LoginPageScanState extends State<LoginPageScan>
           useIcon: true,
           icon: Icons.fingerprint,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        FormTitle(text: "O"),
-        SizedBox(
+        const FormTitle(text: "O"),
+        const SizedBox(
           height: 10,
         ),
         RoundedButtonWidget(
@@ -231,15 +231,15 @@ class _LoginPageScanState extends State<LoginPageScan>
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image(
-            image: AssetImage("assets/logo.png"),
+            image: const AssetImage("assets/logo.png"),
             width: screenWidth * 0.4,
             height: screenHeight * 0.21,
           ),
-          Text(
+          const Text(
             "INICIAR SESIÓN",
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           loginPageScanBody(screenWidth, screenHeight)

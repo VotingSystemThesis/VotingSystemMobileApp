@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:votingsystem/router/routes.dart';
-import 'package:votingsystem/utils/Utils.dart';
-import 'package:votingsystem/views/common/IconList.dart';
-import 'package:votingsystem/views/common/MainBackground.dart';
-import 'package:votingsystem/views/core/SecondHome.dart';
-import 'package:votingsystem/views/profile/ProfilePage.dart';
+import 'package:votingsystem/utils/utils.dart';
+//import 'package:votingsystem/views/common/icon_list.dart';
+import 'package:votingsystem/views/common/main_background.dart';
+import 'package:votingsystem/views/core/second_home.dart';
+import 'package:votingsystem/views/profile/profile_page.dart';
 import 'package:votingsystem/views/political parties/political_parties_list_view.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -17,21 +17,21 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String currentroute = '';
   Route _onGenerateRoute(RouteSettings settings) {
-    Widget page = SecondHome();
+    Widget page = const SecondHome();
     currentroute = settings.name!;
 
     switch (settings.name) {
       case routeSecondHome:
-        page = SecondHome();
+        page = const SecondHome();
         break;
       case routeProfile:
-        page = UserProfilePage();
+        page = const UserProfilePage();
         break;
       case routePoliticalParties:
-        page = PoliticalPartiesListView();
+        page = const PoliticalPartiesListView();
         break;
       default:
-        print("NOMBRE SUBRUTA: " + settings.name!);
+        debugPrint("NOMBRE SUBRUTA: " + settings.name!);
     }
     return MaterialPageRoute<dynamic>(
       builder: (context) {
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget homeBody(screenWidth, screenHeight) {
-    return Container(
+    return SizedBox(
       width: screenWidth,
       height: screenHeight,
       child: Navigator(
@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
   }
 
   Widget _iconsForNavbar() {
-    var testing = currentroute;
+    //var testing = currentroute;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -63,25 +63,25 @@ class _HomeState extends State<Home> {
             Utils.homeNavigator.currentState!
                 .pushReplacementNamed(routeSecondHome);
           },
-          child: Icon(
+          child: const Icon(
             Icons.home,
             size: 35,
           ),
         ),
         GestureDetector(
-          onTap: () => Utils.homeNavigator.currentState!.pushNamed(routePoliticalParties),
-          child: Icon(
-          Icons.article,
-          size: 35,
+          onTap: () => Utils.homeNavigator.currentState!
+              .pushReplacementNamed(routePoliticalParties),
+          child: const Icon(
+            Icons.article,
+            size: 35,
+          ),
         ),
-        ),
-        
         GestureDetector(
           onTap: () {
             Utils.homeNavigator.currentState!
                 .pushReplacementNamed(routeProfile);
           },
-          child: Icon(
+          child: const Icon(
             Icons.person,
             size: 35,
           ),
@@ -94,14 +94,14 @@ class _HomeState extends State<Home> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
           elevation: 6,
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             width: screenWidth * 0.7,
             height: 60,
             child: _iconsForNavbar(),

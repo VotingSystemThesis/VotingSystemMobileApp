@@ -5,11 +5,10 @@ class Utils {
   static GlobalKey<NavigatorState> homeNavigator = GlobalKey<NavigatorState>();
 
   static ImageProvider getPosterImage(String posterPath) {
-    if (posterPath != null &&
-        posterPath.contains(RegExp(r'http', caseSensitive: false))) {
+    if (posterPath.contains(RegExp(r'http', caseSensitive: false))) {
       return NetworkImage(posterPath);
     } else {
-      return AssetImage("assets/img/no-image.jpg");
+      return const AssetImage("assets/img/no-image.jpg");
     }
   }
 
@@ -18,7 +17,7 @@ class Utils {
       width: screenWidth,
       height: screenHeight,
       color: Colors.white.withOpacity(0.9),
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator(),
       ),
     );

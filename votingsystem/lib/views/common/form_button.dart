@@ -5,16 +5,18 @@ class RoundedButtonWidget extends StatelessWidget {
   final double width;
   final double height;
   final Function onpressed;
-  bool useIcon;
-  IconData? icon;
+  final bool useIcon;
+  final IconData? icon;
 
-  RoundedButtonWidget(
-      {required this.buttonText,
+  const RoundedButtonWidget(
+      {Key? key,
+      required this.buttonText,
       required this.width,
       required this.height,
       required this.onpressed,
       this.useIcon = false,
-      this.icon});
+      this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +32,19 @@ class RoundedButtonWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(buttonText,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Icon(this.icon)
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18)),
+                  Icon(icon)
                 ],
               )
             : Text(
                 buttonText,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
         style: ElevatedButton.styleFrom(
             elevation: 5,
-            primary: Color.fromRGBO(58, 60, 172, 1),
+            primary: const Color.fromRGBO(58, 60, 172, 1),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
       ),
