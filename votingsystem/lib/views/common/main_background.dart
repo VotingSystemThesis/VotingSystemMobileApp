@@ -7,6 +7,7 @@ class MainBackground extends StatelessWidget {
   final double distribution;
   final bool withPadding;
   final Function? onPress;
+  final bool isScrollable;
 
   const MainBackground(
       {Key? key,
@@ -14,7 +15,8 @@ class MainBackground extends StatelessWidget {
       this.useBackButton = false,
       this.distribution = 0.8,
       this.onPress,
-      this.withPadding = true})
+      this.withPadding = true,
+      this.isScrollable = false})
       : super(key: key);
 
   @override
@@ -31,34 +33,37 @@ class MainBackground extends StatelessWidget {
             height: screenHeight,
             color: const Color.fromRGBO(225, 228, 253, 1),
             child: SingleChildScrollView(
+                physics: isScrollable
+                    ? const AlwaysScrollableScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (useBackButton)
-                  SizedBox(
-                    width: screenWidth,
-                    height: 30,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          padding: const EdgeInsets.all(0),
-                          iconSize: 30,
-                          onPressed: () {
-                            onPress!();
-                          },
-                          icon: const Icon(Icons.arrow_back_ios_new),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (useBackButton)
+                      SizedBox(
+                        width: screenWidth,
+                        height: 30,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              padding: const EdgeInsets.all(0),
+                              iconSize: 30,
+                              onPressed: () {
+                                onPress!();
+                              },
+                              icon: const Icon(Icons.arrow_back_ios_new),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const FormTitle(text: "Volver")
+                          ],
                         ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const FormTitle(text: "Volver")
-                      ],
-                    ),
-                  ),
-                SizedBox(height: screenHeight * distribution, child: child)
-              ],
-            ))),
+                      ),
+                    SizedBox(height: screenHeight * distribution, child: child)
+                  ],
+                ))),
       ),
     );
   }

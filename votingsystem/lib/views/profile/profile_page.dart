@@ -76,7 +76,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
     var screenWidth = MediaQuery.of(context).size.width;
     //var screenHeight = MediaQuery.of(context).size.height;
     return MainBackground(
-      distribution: 0.82,
+      distribution: 0.97,
       withPadding: false,
       child: Column(
         children: [
@@ -98,7 +98,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   height: 15,
                 ),
                 const Text(
-                  "Nombre Apell1 Apell2",
+                  "Nombre",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 )
               ],
@@ -116,8 +116,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 child: Column(
                   children: [
                     // singleRow("Nombre", "text"),
-                    // doubleRow("Apellido Materno", "text1", "Apellido Paterno",
-                    //     "text2"),
+                    doubleRow("Apellido Materno", "text1", "Apellido Paterno",
+                        "text2"),
                     doubleRow("Edad", "text1", "Sexo", "text2"),
                     doubleRow("Nacionalidad", "text1", "Estado Civil", "text2"),
                     doubleRow("Nacimiento", "text1", "Ubigeo", "text2"),
