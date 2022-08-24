@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const FormTitle(
+              FormTitle(
                 text: "DNI",
               ),
               SizedBox(
@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const FormTitle(
+              FormTitle(
                 text: "Fecha de emisión",
               ),
               SizedBox(
