@@ -173,6 +173,7 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
             });
       },
       child: Card(
+        margin: EdgeInsets.symmetric(vertical: 10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
@@ -212,13 +213,10 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
 
   Widget buildPoliticalParties(
       List<PoliticalParty> politicalParties, screenWidth, screenHeight) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: politicalParties.length,
       itemBuilder: (context, index) {
         return singlePoliticalParty(index, screenWidth, screenHeight);
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider();
       },
     );
   }
