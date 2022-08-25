@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:votingsystem/views/common/form_title.dart';
+import 'package:votingsystem/views/political%20parties/single_political_party.dart';
 
 import '../../models/political_party.dart';
+import '../common/form_button.dart';
 import '../common/main_background.dart';
 
 class PoliticalPartiesListView extends StatefulWidget {
@@ -59,6 +62,8 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return MainBackground(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,62 +76,20 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
                 overflow: TextOverflow.ellipsis),
           ),
           Expanded(
-            child: buildPoliticalParties(politicalParties),
+            child: buildPoliticalParties(
+                politicalParties, screenWidth, screenHeight),
           ),
         ],
       ),
     );
   }
 
-  Widget buildPoliticalParties(List<PoliticalParty> politicalParties) {
-    return ListView.separated(
+  Widget buildPoliticalParties(
+      List<PoliticalParty> politicalParties, screenWidth, screenHeight) {
+    return ListView.builder(
       itemCount: politicalParties.length,
       itemBuilder: (context, index) {
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          elevation: 3,
-          child: ListTile(
-            contentPadding:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            dense: true,
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 5.0),
-              child: Text(
-                politicalParties[index].leader.toUpperCase(),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            subtitle: Text(politicalParties[index].name),
-            leading: SizedBox(
-              width: 50,
-              height: 50,
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: NetworkImage(politicalParties[index].logo),
-              ),
-            ),
-            trailing: const Icon(
-              Icons.more_vert,
-              size: 35,
-              color: Colors.black,
-            ),
-            // onTap: () {
-            //   Navigator.pushNamed(
-            //     context,
-            //     "/political_party_detail",
-            //     arguments: politicalParties[index],
-            //   );
-            // },
-          ),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider();
+        return SinglePoliticalParty(politicalParties[index]);
       },
     );
   }

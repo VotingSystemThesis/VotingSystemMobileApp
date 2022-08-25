@@ -145,7 +145,7 @@ class _LoginPageScanState extends State<LoginPageScan>
           child: SizedBox(
             width: screenWidth * 0.8,
             height: screenHeight * 0.08,
-            child: const Center(
+            child: Center(
               child: FormTitle(
                 text: "Verifica tus datos",
               ),
@@ -168,7 +168,7 @@ class _LoginPageScanState extends State<LoginPageScan>
         const SizedBox(
           height: 10,
         ),
-        const FormTitle(text: "O"),
+        FormTitle(text: "O"),
         const SizedBox(
           height: 10,
         ),

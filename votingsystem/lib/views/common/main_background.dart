@@ -57,7 +57,7 @@ class MainBackground extends StatelessWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            const FormTitle(text: "Volver")
+                            FormTitle(text: "Volver")
                           ],
                         ),
                       ),
