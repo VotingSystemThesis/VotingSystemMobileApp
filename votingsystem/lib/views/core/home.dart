@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/utils.dart';
-import 'package:votingsystem/views/candidates%20list/candidates_grid_view.dart';
+import 'package:votingsystem/views/candidates/candidates_grid_view.dart';
 //import 'package:votingsystem/views/common/icon_list.dart';
 import 'package:votingsystem/views/common/main_background.dart';
 import 'package:votingsystem/views/core/second_home.dart';

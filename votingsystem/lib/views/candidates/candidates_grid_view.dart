@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:votingsystem/models/candidate.dart';
+import 'package:votingsystem/router/routes.dart';
+import 'package:votingsystem/utils/utils.dart';
 import 'package:votingsystem/views/common/main_background.dart';
 
 class CandidatesGridView extends StatefulWidget {
@@ -105,48 +107,44 @@ class _CandidatesGridViewState extends State<CandidatesGridView> {
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemCount: candidates.length,
       itemBuilder: (context, index) {
-        return Card(
-          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          elevation: 3,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.topEnd,
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 100,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.white,
-                      backgroundImage: NetworkImage(candidates[index].imageUrl),
-                    ),
-                  ),
-                  const Icon(
-                    Icons.more_vert,
-                    size: 30,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(
-                    candidates[index].name,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.visible,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        overflow: TextOverflow.ellipsis),
+        return GestureDetector(
+          onTap: () {
+            Utils.mainNavigator.currentState!
+                .pushNamed(routeCandidateDetails, arguments: candidates[index]);
+          },
+          child: Card(
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            elevation: 3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 100,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage(candidates[index].imageUrl),
                   ),
                 ),
-              ),
-            ],
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Text(
+                      candidates[index].name,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.visible,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

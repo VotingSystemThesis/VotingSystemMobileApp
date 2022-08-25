@@ -5,14 +5,14 @@ import 'package:votingsystem/views/common/form_button.dart';
 import 'package:votingsystem/views/common/form_title.dart';
 
 class SinglePoliticalParty extends StatelessWidget {
-  PoliticalParty politicalParty;
-  SinglePoliticalParty(this.politicalParty);
+  final PoliticalParty politicalParty;
+  const SinglePoliticalParty(this.politicalParty, {Key? key}) : super(key: key);
 
   Widget firstPoliticalPartyDialog(screenWidth, screenHeight, ctx) {
     return Dialog(
-      insetPadding: EdgeInsets.all(20),
+      insetPadding: const EdgeInsets.all(20),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: screenWidth * 0.85,
         height: screenHeight * 0.45,
         child: Column(
@@ -23,7 +23,7 @@ class SinglePoliticalParty extends StatelessWidget {
                 fontSize: 28,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Column(
@@ -32,18 +32,18 @@ class SinglePoliticalParty extends StatelessWidget {
                 Wrap(
                   alignment: WrapAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "¿Seguro que desea votar por",
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
                       politicalParty.leader,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                   ],
                 ),
-                Text(
+                const Text(
                   " de ",
                   style: TextStyle(fontSize: 18),
                 ),
@@ -51,10 +51,10 @@ class SinglePoliticalParty extends StatelessWidget {
                   children: [
                     Text(
                       politicalParty.name,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18),
                     ),
-                    Text(
+                    const Text(
                       "?",
                       style: TextStyle(fontSize: 18),
                     )
@@ -62,7 +62,7 @@ class SinglePoliticalParty extends StatelessWidget {
                 )
               ],
             ),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -77,7 +77,7 @@ class SinglePoliticalParty extends StatelessWidget {
                           context: ctx,
                           builder: (successctx) {
                             return successDialog(
-                                screenWidth, screenHeight, successctx);
+                                screenWidth, screenHeight, successctx, ctx);
                           });
                     } else {
                       showDialog(
@@ -96,8 +96,7 @@ class SinglePoliticalParty extends StatelessWidget {
                   child: const Text(
                     "Cancelar",
                     style: TextStyle(
-                        fontSize: 18,
-                        color: const Color.fromRGBO(58, 60, 172, 1)),
+                        fontSize: 18, color: Color.fromRGBO(58, 60, 172, 1)),
                   ),
                 )
               ],
@@ -108,11 +107,11 @@ class SinglePoliticalParty extends StatelessWidget {
     );
   }
 
-  Widget successDialog(screenWidth, screenHeight, successctx) {
+  Widget successDialog(screenWidth, screenHeight, successctx, ctx) {
     return Dialog(
-      insetPadding: EdgeInsets.all(20),
+      insetPadding: const EdgeInsets.all(20),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: screenWidth * 0.85,
         height: screenHeight * 0.45,
         child: Column(
@@ -122,23 +121,24 @@ class SinglePoliticalParty extends StatelessWidget {
               text: "Voto Confirmado",
               fontSize: 28,
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
-            Container(
+            SizedBox(
                 height: screenHeight * 0.2,
-                child: Image(
+                child: const Image(
                   image: AssetImage('assets/correctIcon.png'),
                 )),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             GestureDetector(
               onTap: () {
+                Navigator.of(ctx).pop();
                 Navigator.of(successctx).pop();
               },
-              child: Text(
+              child: const Text(
                 "Regresar",
                 style: TextStyle(
-                    fontSize: 20, color: const Color.fromRGBO(58, 60, 172, 1)),
+                    fontSize: 20, color: Color.fromRGBO(58, 60, 172, 1)),
               ),
             )
           ],
@@ -149,42 +149,42 @@ class SinglePoliticalParty extends StatelessWidget {
 
   Widget errorDialog(screenWidth, screenHeight, errorctx) {
     return Dialog(
-      insetPadding: EdgeInsets.all(20),
+      insetPadding: const EdgeInsets.all(20),
       child: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: screenWidth * 0.85,
         height: screenHeight * 0.45,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FormTitle(
-              text: "Voto Confirmado",
+              text: "Voto no confirmado",
               fontSize: 28,
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Row(
               children: [
-                Container(
+                SizedBox(
                     height: screenHeight * 0.2,
-                    child: Image(
+                    child: const Image(
                       image: AssetImage('assets/cancelIcon.png'),
                     )),
-                Flexible(
+                const Flexible(
                     child:
                         Text("Ha ocurrido un error en el registro de su voto"))
               ],
             ),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             GestureDetector(
               onTap: () {
                 Navigator.of(errorctx).pop();
               },
-              child: Text(
+              child: const Text(
                 "Regresar",
                 style: TextStyle(
-                    fontSize: 20, color: const Color.fromRGBO(58, 60, 172, 1)),
+                    fontSize: 20, color: Color.fromRGBO(58, 60, 172, 1)),
               ),
             )
           ],
@@ -206,7 +206,7 @@ class SinglePoliticalParty extends StatelessWidget {
             });
       },
       child: Card(
-        margin: EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),

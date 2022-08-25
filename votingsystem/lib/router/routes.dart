@@ -14,3 +14,6 @@ const routePoliticalParties = '/political-parties';
 
 /* Candidates */
 const routeCandidates = '/candidates';
+
+/* Candidate Details */
+const routeCandidateDetails = '/candidate-details';

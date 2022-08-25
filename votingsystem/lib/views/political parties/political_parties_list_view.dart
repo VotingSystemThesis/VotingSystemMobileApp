@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:votingsystem/views/common/form_title.dart';
 import 'package:votingsystem/views/political%20parties/single_political_party.dart';
 
 import '../../models/political_party.dart';
-import '../common/form_button.dart';
 import '../common/main_background.dart';
 
 class PoliticalPartiesListView extends StatefulWidget {
