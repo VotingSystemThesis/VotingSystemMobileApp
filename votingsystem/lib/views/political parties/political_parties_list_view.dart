@@ -91,11 +91,14 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             dense: true,
-            title: Text(
-              politicalParties[index].leader.toUpperCase(),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Text(
+                politicalParties[index].leader.toUpperCase(),
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
             subtitle: Text(politicalParties[index].name),
@@ -109,6 +112,7 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
             ),
             trailing: const Icon(
               Icons.more_vert,
+              size: 35,
               color: Colors.black,
             ),
             // onTap: () {

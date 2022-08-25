@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/utils.dart';
+import 'package:votingsystem/views/candidates%20list/candidates_grid_view.dart';
 //import 'package:votingsystem/views/common/icon_list.dart';
 import 'package:votingsystem/views/common/main_background.dart';
 import 'package:votingsystem/views/core/second_home.dart';
@@ -29,6 +30,9 @@ class _HomeState extends State<Home> {
         break;
       case routePoliticalParties:
         page = const PoliticalPartiesListView();
+        break;
+      case routeCandidates:
+        page = const CandidatesGridView();
         break;
       default:
         debugPrint("NOMBRE SUBRUTA: " + settings.name!);
@@ -73,6 +77,14 @@ class _HomeState extends State<Home> {
               .pushReplacementNamed(routePoliticalParties),
           child: const Icon(
             Icons.article,
+            size: 35,
+          ),
+        ),
+        GestureDetector(
+          onTap: () => Utils.homeNavigator.currentState!
+              .pushReplacementNamed(routeCandidates),
+          child: const Icon(
+            Icons.how_to_vote,
             size: 35,
           ),
         ),
