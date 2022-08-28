@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:votingsystem/utils/utils.dart';
 import 'package:votingsystem/views/common/main_background.dart';
 
 import '../../models/candidate.dart';
@@ -11,6 +12,10 @@ class CandidateDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     return MainBackground(
+      useBackButton: true,
+      onPress: () {
+        Utils.mainNavigator.currentState!.pop();
+      },
       distribution: 0.97,
       withPadding: false,
       child: Column(
