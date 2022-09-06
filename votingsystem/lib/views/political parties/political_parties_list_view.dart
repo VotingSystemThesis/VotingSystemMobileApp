@@ -57,11 +57,12 @@ class PoliticalPartiesListView extends StatefulWidget {
 class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
   List<PoliticalParty> politicalParties =
       PoliticalPartiesListView.getPoliticalParties();
-
+  bool loaded = false;
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
+
     return MainBackground(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,10 +74,56 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
                 fontSize: 25,
                 overflow: TextOverflow.ellipsis),
           ),
-          Expanded(
-            child: buildPoliticalParties(
-                politicalParties, screenWidth, screenHeight),
-          ),
+          loaded
+              ? Expanded(
+                  child: buildPoliticalParties(
+                      politicalParties, screenWidth, screenHeight),
+                )
+              : Expanded(
+                  child: SizedBox(
+                    width: 350,
+                    child: Card(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 150),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      elevation: 3,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.search,
+                              size: 50,
+                            ),
+                            const Text(
+                              "No se encontraron partidos políticos",
+                              style: TextStyle(
+                                fontSize: 25,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  loaded = true;
+                                });
+                              },
+                              child: const Text(
+                                "Reintentar",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
         ],
       ),
     );
