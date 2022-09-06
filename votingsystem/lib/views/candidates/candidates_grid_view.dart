@@ -80,25 +80,69 @@ class CandidatesGridView extends StatefulWidget {
 
 class _CandidatesGridViewState extends State<CandidatesGridView> {
   List<Candidate> candidates = CandidatesGridView.getCandidates();
+  bool loaded = false;
   @override
   Widget build(BuildContext context) {
     return MainBackground(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Lista de Candidatos",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                overflow: TextOverflow.ellipsis),
-          ),
-          Expanded(
-            child: buildCandidates(candidates),
-          ),
-        ],
-      ),
-    );
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Lista de Candidatos",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+              overflow: TextOverflow.ellipsis),
+        ),
+        loaded == true
+            ? Expanded(
+                child: buildCandidates(candidates),
+              )
+            : SizedBox(
+                width: 350,
+                child: Card(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 220),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  elevation: 3,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.search,
+                          size: 50,
+                        ),
+                        const Text(
+                          "No se encontraron candidatos",
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              loaded = true;
+                            });
+                          },
+                          child: const Text(
+                            "Reintentar",
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+      ],
+    ));
   }
 
   Widget buildCandidates(List<Candidate> candidates) {

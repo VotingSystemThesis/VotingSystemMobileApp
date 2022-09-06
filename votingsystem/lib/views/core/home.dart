@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
     return MainBackground(
-        distribution: 0.97,
+        distribution: 0.9,
         withPadding: false,
         child: Stack(
           children: [
