@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:votingsystem/core/provider/loginProvider.dart';
+import 'package:votingsystem/model/loginDto.dart';
 
 class UserLoginBloc {
   final _birthdayController = BehaviorSubject<String>();
@@ -57,5 +59,10 @@ class UserLoginBloc {
     int years = totalDays ~/ 365;
 
     return years > 18;
+  }
+
+  isVoterRegistered(LoginDto loginDto) async {
+    LoginProvier loginProvier = new LoginProvier();
+    var resp = await loginProvier.isVoterRegistered(loginDto);
   }
 }

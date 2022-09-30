@@ -29,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   _saveForm() {
     if (this._loginFormKey.currentState!.validate()) {
       this._loginFormKey.currentState!.save();
+      userProfileBloc.isVoterRegistered(loginDto);
     }
   }
 
@@ -37,6 +38,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsets.all(25),
       child: SingleChildScrollView(
         child: Form(
+          key: _loginFormKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
