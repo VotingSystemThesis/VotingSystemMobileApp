@@ -1,8 +1,18 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:ffi';
 
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:votingsystem/core/provider/loginProvider.dart';
-import 'package:votingsystem/model/loginDto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:votingsystem/core/provider/userProvider.dart';
+import 'package:votingsystem/core/provider/notificationProvider.dart';
+import 'package:votingsystem/core/util/Messages.dart';
+
+import 'package:votingsystem/models/loginDto.dart';
+import 'package:votingsystem/models/voter.dart';
+import 'package:votingsystem/router/routes.dart';
+import 'package:votingsystem/utils/utils.dart';
 
 class UserLoginBloc {
   final _birthdayController = BehaviorSubject<String>();
@@ -61,8 +71,45 @@ class UserLoginBloc {
     return years > 18;
   }
 
-  isVoterRegistered(LoginDto loginDto) async {
-    LoginProvier loginProvier = new LoginProvier();
+  isVoterRegistered(LoginDto loginDto, BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    UserProvider loginProvier = new UserProvider();
     var resp = await loginProvier.isVoterRegistered(loginDto);
+    if (resp != null) {
+      prefs.setString('dni', resp.dni!);
+      prefs.setString('votanteId', resp.id!);
+      Utils.mainNavigator.currentState!.pushNamed(routeLoginViewScan);
+      NotificationProvider()
+          .showSnackbar(context, correctLoginVerification, "success", null);
+    } else {
+      NotificationProvider()
+          .showSnackbar(context, wrongLoginVerification, "error", null);
+    }
+  }
+
+  Future<bool> validateDniCodebar(String barcode, context) async {
+    UserProvider loginProvier = new UserProvider();
+    final prefs = await SharedPreferences.getInstance();
+
+    var resp = await loginProvier.getVoterById(prefs.getString('votanteId')!);
+    if (barcode.contains(resp!.dni!)) {
+      // Utils.mainNavigator.currentState!.pushNamed(routeHome);
+      // NotificationProvider()
+      //     .showSnackbar(context, correctLoginVerification, "success", null);
+      return true;
+    } else {
+      NotificationProvider()
+          .showSnackbar(context, wrongLoginVerification, "error", null);
+      return false;
+    }
+  }
+
+  Future<Voter> getVoterProfile() async {
+    UserProvider loginProvier = new UserProvider();
+
+    final prefs = await SharedPreferences.getInstance();
+    var resp = await loginProvier.getVoterById(prefs.getString('votanteId')!);
+    return resp!;
   }
 }

@@ -1,8 +1,11 @@
 //import 'package:biometric_storage/biometric_storage.dart';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:votingsystem/core/bloc/authentication.dart';
+import 'package:votingsystem/core/bloc/userLoginBloc.dart';
 import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/utils.dart';
 import 'package:votingsystem/views/common/form_button.dart';
@@ -119,12 +122,10 @@ class _LoginPageScanState extends State<LoginPageScan>
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-
-      authController.authenticate(AuthMode.barcode).then((value) {
-        setState(() {
-          isAuthenticated = value;
-        });
-      });
+      print(barcodeScanRes);
+      UserLoginBloc userBloc = UserLoginBloc();
+      isAuthenticated =
+          await userBloc.validateDniCodebar(barcodeScanRes, context);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -155,20 +156,20 @@ class _LoginPageScanState extends State<LoginPageScan>
         const SizedBox(
           height: 20,
         ),
-        RoundedButtonWidget(
-          buttonText: "HUELLA DACTILAR",
-          height: 50,
-          onpressed: () async {
-            authenticateFingerprint();
-          },
-          width: screenWidth * 0.8,
-          useIcon: true,
-          icon: Icons.fingerprint,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        FormTitle(text: "O"),
+        // RoundedButtonWidget(
+        //   buttonText: "HUELLA DACTILAR",
+        //   height: 50,
+        //   onpressed: () async {
+        //     authenticateFingerprint();
+        //   },
+        //   width: screenWidth * 0.8,
+        //   useIcon: true,
+        //   icon: Icons.fingerprint,
+        // ),
+        // const SizedBox(
+        //   height: 10,
+        // ),
+        // FormTitle(text: "O"),
         const SizedBox(
           height: 10,
         ),

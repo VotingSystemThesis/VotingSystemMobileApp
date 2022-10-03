@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:votingsystem/core/bloc/userLoginBloc.dart';
+import 'package:votingsystem/models/voter.dart';
+import 'package:votingsystem/utils/utils.dart';
 //import 'package:votingsystem/views/common/form_title.dart';
 import 'package:votingsystem/views/common/main_background.dart';
 
@@ -15,7 +19,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       text,
       style: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 15,
+          fontSize: 20,
           overflow: TextOverflow.ellipsis),
     );
   }
@@ -24,7 +28,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return Text(
       text,
       textAlign: TextAlign.left,
-      style: const TextStyle(overflow: TextOverflow.ellipsis),
+      style: const TextStyle(
+        overflow: TextOverflow.ellipsis,
+        fontSize: 18,
+      ),
     );
   }
 
@@ -71,69 +78,92 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
+  String getAge(String birthDate) {
+    var actualDate = DateTime.now();
+    var birth = new DateFormat("dd-MM-yyyy").parse(birthDate);
+
+    var dif = actualDate.difference(birth).inDays ~/ 365;
+
+    return dif.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-    //var screenHeight = MediaQuery.of(context).size.height;
+    var screenHeight = MediaQuery.of(context).size.height;
     return MainBackground(
-      distribution: 0.97,
+      distribution: 1,
       withPadding: false,
-      child: Column(
-        children: [
-          Container(
-            width: screenWidth,
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                const Text(
-                  "Perfil",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                CircleAvatar(
-                  radius: screenWidth * 0.165,
-                  backgroundImage: const NetworkImage(
-                      'https://pps.whatsapp.net/v/t61.24694-24/290134819_987158865306615_8330649461858456400_n.jpg?ccb=11-4&oh=01_AVwC7iGLLZXsSl69Br4ELIA80gscK2lEPUsVbSHeYkzgCg&oe=630BBA31'),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  "Nombre",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            child: Material(
-              borderRadius: BorderRadius.circular(30),
-              elevation: 10,
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                width: screenWidth,
-                //height: screenHeight * 0.65,
-                child: Column(
-                  children: [
-                    // singleRow("Nombre", "text"),
-                    doubleRow("Apellido Materno", "text1", "Apellido Paterno",
-                        "text2"),
-                    doubleRow("Edad", "text1", "Sexo", "text2"),
-                    doubleRow("Nacionalidad", "text1", "Estado Civil", "text2"),
-                    doubleRow("Nacimiento", "text1", "Ubigeo", "text2"),
-                    singleRow("Dirección", "text"),
-                  ],
-                ),
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30)),
-                    color: Color.fromRGBO(248, 249, 255, 1)),
-              ),
-            ),
-          ),
-        ],
-      ),
+      child: FutureBuilder(
+          future: UserLoginBloc().getVoterProfile(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var voter = snapshot.data as Voter;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    width: screenWidth,
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "Perfil",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        CircleAvatar(
+                          radius: screenWidth * 0.165,
+                          backgroundImage: const NetworkImage(
+                              'https://media.discordapp.net/attachments/637114961365041163/1024802988100948059/unknown.png'),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          voter.name!,
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Material(
+                      borderRadius: BorderRadius.circular(30),
+                      elevation: 10,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 30),
+                        width: screenWidth,
+                        //height: screenHeight * 0.65,
+                        child: Column(
+                          children: [
+                            // singleRow("Nombre", "text"),
+                            doubleRow("Apellido", voter.lastName,
+                                "Nacionalidad", "Peruano"),
+                            doubleRow("Edad", getAge(voter.birthDate!), "Sexo",
+                                voter.gender! ? "Masculino" : 'Femenino'),
+
+                            singleRow("Email", voter.email),
+                          ],
+                        ),
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30)),
+                            color: Color.fromRGBO(248, 249, 255, 1)),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Utils().loader(screenWidth, screenHeight);
+            }
+          }),
     );
   }
 }

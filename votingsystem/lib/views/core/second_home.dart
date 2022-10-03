@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:votingsystem/core/bloc/electionsBloc.dart';
+import 'package:votingsystem/core/bloc/userLoginBloc.dart';
+import 'package:votingsystem/models/election.dart';
+import 'package:votingsystem/utils/utils.dart';
 import 'package:votingsystem/views/Voting/select_voting_card.dart';
 //import 'package:votingsystem/views/common/form_title.dart';
 
@@ -10,6 +14,14 @@ class SecondHome extends StatefulWidget {
 }
 
 class _SecondHomeState extends State<SecondHome> {
+  ElectionsBloc electionsBloc = ElectionsBloc();
+
+  @override
+  void initState() {
+    electionsBloc.getElections();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -32,17 +44,32 @@ class _SecondHomeState extends State<SecondHome> {
             textAlign: TextAlign.center,
           ),
           SizedBox(
-            width: screenWidth,
-            height: screenHeight * 0.3,
-            child: PageView(
-              controller: PageController(viewportFraction: 0.95),
-              children: const [
-                SelectVotingCard(),
-                SelectVotingCard(),
-                SelectVotingCard()
-              ],
-            ),
-          )
+              width: screenWidth,
+              height: screenHeight * 0.3,
+              child: StreamBuilder(
+                  stream: electionsBloc.electionsStream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      List<Election> elections =
+                          snapshot.data as List<Election>;
+                      return elections.length > 0
+                          ? PageView.builder(
+                              controller:
+                                  PageController(viewportFraction: 0.95),
+                              itemCount: elections.length,
+                              itemBuilder: (context, index) {
+                                return SelectVotingCard(elections[index]);
+                              },
+                            )
+                          : Center(
+                              child: Text(
+                                  "Usted no cuenta con una votacion disponible"));
+                    } else {
+                      return Container(
+                        child: Utils().loader(screenWidth, screenHeight * 0.3),
+                      );
+                    }
+                  }))
         ],
       ),
     );

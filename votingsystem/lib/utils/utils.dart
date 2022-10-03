@@ -14,9 +14,11 @@ class Utils {
 
   Widget loader(screenWidth, screenHeight) {
     return Container(
+      decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.9),
+          borderRadius: BorderRadius.all(Radius.circular(44))),
       width: screenWidth,
       height: screenHeight,
-      color: Colors.white.withOpacity(0.9),
       child: const Center(
         child: CircularProgressIndicator(),
       ),

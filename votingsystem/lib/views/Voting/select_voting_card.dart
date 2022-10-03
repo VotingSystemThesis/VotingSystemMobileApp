@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:votingsystem/models/election.dart';
 import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/utils.dart';
 
 class SelectVotingCard extends StatelessWidget {
-  const SelectVotingCard({Key? key}) : super(key: key);
+  Election election;
+  SelectVotingCard(this.election);
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +34,19 @@ class SelectVotingCard extends StatelessWidget {
                   Colors.black.withOpacity(.5),
                   Colors.black.withOpacity(.1),
                 ])),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: const [
-                Text(
-                  "Elecciones Distritales",
-                  style: TextStyle(color: Colors.white, fontSize: 25),
-                )
-              ],
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Wrap(
+                alignment: WrapAlignment.end,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    election.description!,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                  )
+                ],
+              ),
             ),
           )),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:votingsystem/core/bloc/userLoginBloc.dart';
-import 'package:votingsystem/model/loginDto.dart';
+import 'package:votingsystem/models/loginDto.dart';
 import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/utils.dart';
 import 'package:votingsystem/views/common/form_button.dart';
@@ -26,10 +26,10 @@ class _LoginPageState extends State<LoginPage> {
   bool errorDni = false;
   bool errorEmissionDate = false;
 
-  _saveForm() {
+  _saveForm() async {
     if (this._loginFormKey.currentState!.validate()) {
       this._loginFormKey.currentState!.save();
-      userProfileBloc.isVoterRegistered(loginDto);
+      userProfileBloc.isVoterRegistered(loginDto, context);
     }
   }
 
