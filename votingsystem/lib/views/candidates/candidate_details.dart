@@ -13,7 +13,7 @@ class CandidateDetails extends StatefulWidget {
 }
 
 class _CandidateDetailsState extends State<CandidateDetails> {
-  bool loaded = false;
+  bool loaded = true;
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
@@ -43,7 +43,8 @@ class _CandidateDetailsState extends State<CandidateDetails> {
                 ),
                 CircleAvatar(
                   radius: screenWidth * 0.165,
-                  backgroundImage: NetworkImage(widget.candidate.imageUrl),
+                  backgroundImage: NetworkImage(
+                      "https://media.discordapp.net/attachments/637114961365041163/1024802988100948059/unknown.png"),
                 ),
                 const SizedBox(
                   height: 15,
@@ -64,12 +65,13 @@ class _CandidateDetailsState extends State<CandidateDetails> {
                       child: Column(
                         children: [
                           singleRow("Nombre", widget.candidate.name),
-                          singleRow(
-                              "Nacionalidad", widget.candidate.nationality),
-                          singleRow("Edad", widget.candidate.age.toString()),
+                          singleRow("Apellido", widget.candidate.lastName),
+                          singleRow("Email", widget.candidate.email),
+
+                          singleRow("Nacionalidad", widget.candidate.lastName),
                           singleRow("Partido Político",
-                              widget.candidate.politicalParty),
-                          singleRow("Educación", widget.candidate.education),
+                              widget.candidate.politicalParty.name),
+                          // singleRow("Educación", widget.candidate.education),
                         ],
                       ),
                       decoration: const BoxDecoration(
@@ -149,7 +151,7 @@ class _CandidateDetailsState extends State<CandidateDetails> {
       text.toUpperCase(),
       style: const TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 15,
+          fontSize: 20,
           overflow: TextOverflow.ellipsis),
     );
   }
@@ -158,7 +160,10 @@ class _CandidateDetailsState extends State<CandidateDetails> {
     return Text(
       text,
       textAlign: TextAlign.left,
-      style: const TextStyle(overflow: TextOverflow.ellipsis),
+      style: const TextStyle(
+        overflow: TextOverflow.ellipsis,
+        fontSize: 18,
+      ),
     );
   }
 }

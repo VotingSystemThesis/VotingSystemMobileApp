@@ -1,29 +1,38 @@
-class Candidate {
-  final int id;
-  final String name;
-  final String nationality;
-  final int age;
-  final String politicalParty;
-  final String education;
-  final String imageUrl;
+import 'dart:convert';
 
-  const Candidate({
+import 'package:votingsystem/models/political_party.dart';
+
+class Candidate {
+  final String id;
+  final String name;
+  final String lastName;
+  final String email;
+  final String dni;
+  final PoliticalParty politicalParty;
+  final String birthDate;
+  final bool gender;
+
+  Candidate({
+    required this.dni,
     required this.id,
     required this.name,
-    required this.nationality,
-    required this.age,
+    required this.lastName,
+    required this.email,
     required this.politicalParty,
-    required this.education,
-    required this.imageUrl,
+    required this.birthDate,
+    required this.gender,
   });
 
-  static Candidate fromJson(json) => Candidate(
-        id: json['id'],
-        name: json['name'],
-        nationality: json['nationality'],
-        age: json['age'],
-        politicalParty: json['politicalParty'],
-        education: json['education'],
-        imageUrl: json['imageUrl'],
-      );
+  static Candidate fromJson(json) {
+    return Candidate(
+      id: json['id'],
+      name: json['name'],
+      lastName: json['lastName'],
+      email: json['email'],
+      politicalParty: PoliticalParty.fromJson(json['politicalParty']),
+      birthDate: json['birthDate'],
+      gender: json['gender'],
+      dni: json['dni'],
+    );
+  }
 }

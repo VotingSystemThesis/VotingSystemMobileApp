@@ -53,6 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                     onChanged: (val) {
                       userProfileBloc.sinkDNI.add(val);
                     },
+                    keyboardType: TextInputType.number,
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText1!.color,
                     ),
@@ -95,6 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                     return TextFormField(
                       controller: _birthdateController,
                       onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+
                         showDatePicker(
                                 context: context,
                                 initialDate: snapshot.hasData
@@ -159,6 +162,8 @@ class _LoginPageState extends State<LoginPage> {
                     return TextFormField(
                       controller: _emissiondateController,
                       onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+
                         showDatePicker(
                                 context: context,
                                 initialDate: snapshot.hasData

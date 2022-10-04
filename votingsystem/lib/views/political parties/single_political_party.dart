@@ -37,7 +37,7 @@ class SinglePoliticalParty extends StatelessWidget {
                       style: TextStyle(fontSize: 18),
                     ),
                     Text(
-                      politicalParty.leader,
+                      politicalParty.description,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 18),
                     ),
@@ -216,7 +216,7 @@ class SinglePoliticalParty extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           dense: true,
           title: Text(
-            politicalParty.leader.toUpperCase(),
+            politicalParty.description,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -228,7 +228,7 @@ class SinglePoliticalParty extends StatelessWidget {
             height: 50,
             child: CircleAvatar(
               backgroundColor: Colors.white,
-              backgroundImage: NetworkImage(politicalParty.logo),
+              // backgroundImage: NetworkImage(politicalParty.logo),
             ),
           ),
 
