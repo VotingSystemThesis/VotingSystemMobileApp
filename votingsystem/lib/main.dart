@@ -8,6 +8,7 @@ import 'package:votingsystem/views/auth/login_page.dart';
 import 'package:votingsystem/views/auth/login_page_scan.dart';
 import 'package:votingsystem/views/candidates/candidate_details.dart';
 import 'package:votingsystem/views/core/home.dart';
+import 'package:votingsystem/views/core/voting_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
           } else if (settings.name!.startsWith(routeCandidateDetails)) {
             final args = settings.arguments as Candidate;
             page = CandidateDetails(args);
+          } else if (settings.name!.startsWith(routeVotingList)) {
+            page = VotingList();
           } else {
             throw Exception('Unknown route: ${settings.name}');
           }

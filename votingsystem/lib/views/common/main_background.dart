@@ -40,28 +40,32 @@ class MainBackground extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     if (useBackButton)
-                      SizedBox(
-                        width: screenWidth,
-                        height: 30,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              padding: const EdgeInsets.all(0),
-                              iconSize: 30,
-                              onPressed: () {
-                                onPress!();
-                              },
-                              icon: const Icon(Icons.arrow_back_ios_new),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            FormTitle(text: "Volver")
-                          ],
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: SizedBox(
+                          width: screenWidth,
+                          height: 30,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                padding: const EdgeInsets.all(0),
+                                iconSize: 30,
+                                onPressed: () {
+                                  onPress!();
+                                },
+                                icon: const Icon(Icons.arrow_back_ios_new),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              FormTitle(text: "Volver")
+                            ],
+                          ),
                         ),
                       ),
-                    SizedBox(height: screenHeight * distribution, child: child)
+                    SizedBox(
+                        height: (screenHeight * distribution), child: child)
                   ],
                 ))),
       ),

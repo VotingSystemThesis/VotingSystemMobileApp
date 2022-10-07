@@ -17,7 +17,18 @@ class ElectionsBloc {
 
     var resp = await loginProvier.getVoterById(prefs.getString('votanteId')!);
     final List<Election> elections =
-        await userProvider.getPendingElections(resp!.city!);
+        await userProvider.getPendingElections(resp!.city!, resp.id!);
+    _electionsController.add(elections);
+  }
+
+  getPastElections() async {
+    UserProvider loginProvier = new UserProvider();
+
+    final prefs = await SharedPreferences.getInstance();
+
+    var resp = await loginProvier.getVoterById(prefs.getString('votanteId')!);
+    final List<Election> elections =
+        await userProvider.getPastElections(resp!.city!, resp.id!);
     _electionsController.add(elections);
   }
 }

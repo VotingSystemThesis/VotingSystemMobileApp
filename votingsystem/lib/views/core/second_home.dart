@@ -58,7 +58,10 @@ class _SecondHomeState extends State<SecondHome> {
                                   PageController(viewportFraction: 0.95),
                               itemCount: elections.length,
                               itemBuilder: (context, index) {
-                                return SelectVotingCard(elections[index]);
+                                return SelectVotingCard(
+                                  election: elections[index],
+                                  isClickeable: true,
+                                );
                               },
                             )
                           : Center(

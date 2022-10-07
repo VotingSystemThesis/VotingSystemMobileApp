@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:votingsystem/models/election.dart';
 import 'package:votingsystem/router/routes.dart';
@@ -5,7 +7,8 @@ import 'package:votingsystem/utils/utils.dart';
 
 class SelectVotingCard extends StatelessWidget {
   Election election;
-  SelectVotingCard(this.election);
+  bool isClickeable = false;
+  SelectVotingCard({required this.election, this.isClickeable = false});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,10 @@ class SelectVotingCard extends StatelessWidget {
     var screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: () {
-        Utils.homeNavigator.currentState!.pushNamed(routePoliticalParties);
+        if (isClickeable) {
+          Utils.mainNavigator.currentState!
+              .pushNamed(routeVotingList, arguments: this.election);
+        }
       },
       child: Container(
           decoration: BoxDecoration(
@@ -35,7 +41,7 @@ class SelectVotingCard extends StatelessWidget {
                   Colors.black.withOpacity(.1),
                 ])),
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.bottomLeft,
               child: Wrap(
                 alignment: WrapAlignment.end,
                 // crossAxisAlignment: CrossAxisAlignment.end,

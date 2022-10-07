@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:votingsystem/models/election.dart';
 import 'package:votingsystem/models/loginDto.dart';
 import 'package:votingsystem/models/voter.dart';
@@ -34,8 +35,29 @@ class UserProvider {
     }
   }
 
-  Future<List<Election>> getPendingElections(String city) async {
-    final uri = Uri.parse('$_url/voting/city/${city}/status/PENDING');
+  Future<List<Election>> getPendingElections(
+      String city, String votanteId) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final uri =
+        Uri.parse('$_url/voting/city/${city}/status/PENDING/voter/$votanteId');
+    final resp = await http.get(uri);
+    if (resp.statusCode == 200) {
+      List<dynamic> decodedJson = json.decode(resp.body);
+      List<Election> elections = decodedJson.map((experienceJson) {
+        return Election.fromJson(experienceJson);
+      }).toList();
+      return elections;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<Election>> getPastElections(String city, String votanteId) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    final uri = Uri.parse(
+        '$_url/voting/city/${city}/status/COMPLETED/voter/$votanteId');
     final resp = await http.get(uri);
     if (resp.statusCode == 200) {
       List<dynamic> decodedJson = json.decode(resp.body);

@@ -17,3 +17,6 @@ const routeCandidates = '/candidates';
 
 /* Candidate Details */
 const routeCandidateDetails = '/candidate-details';
+
+/* Voting List*/
+const routeVotingList = '/voting';

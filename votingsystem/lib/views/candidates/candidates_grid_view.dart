@@ -109,8 +109,8 @@ class _CandidatesGridViewState extends State<CandidatesGridView> {
                   height: 100,
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
-                    // backgroundImage:
-                    //     NetworkImage(candidates[index].imageUrl),
+                    backgroundImage: NetworkImage(
+                        'https://media.discordapp.net/attachments/637114961365041163/1024802988100948059/unknown.png'),
                   ),
                 ),
                 Flexible(
