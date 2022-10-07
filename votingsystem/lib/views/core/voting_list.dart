@@ -17,7 +17,7 @@ class VotingList extends StatefulWidget {
 
 class _VotingListState extends State<VotingList> {
   Widget firstPoliticalPartyDialog(
-      screenWidth, screenHeight, ctx, Candidate candidate) {
+      screenWidth, screenHeight, ctx, Candidate candidate, Election elect) {
     return Dialog(
       insetPadding: const EdgeInsets.all(20),
       child: Container(
@@ -80,14 +80,16 @@ class _VotingListState extends State<VotingList> {
                   buttonText: "VOTAR",
                   height: 50,
                   onpressed: () async {
-                    var response = await VoteBloc().vote();
+                    var response = await VoteBloc().vote(candidate, elect);
                     if (response) {
                       showDialog(
                           context: ctx,
                           builder: (successctx) {
                             return successDialog(
                                 screenWidth, screenHeight, successctx, ctx);
-                          });
+                          }).then((value) {
+                        Utils.mainNavigator.currentState!.pop();
+                      });
                     } else {
                       showDialog(
                           context: ctx,
@@ -229,7 +231,7 @@ class _VotingListState extends State<VotingList> {
                   builder: (context, snapshot) {
                     return snapshot.hasData
                         ? buildCandidates(snapshot.data as List<Candidate>,
-                            screenWidth, screenHeight)
+                            screenWidth, screenHeight, elect)
                         : Expanded(
                             child: SizedBox(
                               width: 350,
@@ -282,7 +284,7 @@ class _VotingListState extends State<VotingList> {
   }
 
   Widget buildCandidates(
-      List<Candidate> candidates, screenWidth, screenHeight) {
+      List<Candidate> candidates, screenWidth, screenHeight, elect) {
     return GridView.builder(
       gridDelegate:
           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
@@ -294,7 +296,7 @@ class _VotingListState extends State<VotingList> {
                 context: gridContext,
                 builder: (dialogContext) {
                   return firstPoliticalPartyDialog(screenWidth, screenHeight,
-                      dialogContext, candidates[index]);
+                      dialogContext, candidates[index], elect);
                 });
           },
           child: Card(

@@ -35,4 +35,15 @@ class Candidate {
       dni: json['dni'],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'lastName': lastName,
+        'email': email,
+        'dni': dni,
+        'birthDate': birthDate,
+        'gender': gender,
+        'politicalParty': politicalParty.toJson()
+      };
 }

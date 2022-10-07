@@ -4,7 +4,7 @@ import 'package:votingsystem/models/political_party.dart';
 import 'package:votingsystem/models/voter.dart';
 
 class VoteDto {
-  Candidate? candidate;
+  List<Candidate>? candidate;
   Election? voting;
   Voter? voter;
 
@@ -13,4 +13,16 @@ class VoteDto {
     required this.voter,
     required this.voting,
   });
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> candidatesToSend = [];
+    candidate!.forEach((element) {
+      candidatesToSend.add(element.toJson());
+    });
+
+    return {
+      'voting': voting?.toJson(),
+      'voter': voter?.toJson(),
+      'candidateList': candidatesToSend
+    };
+  }
 }

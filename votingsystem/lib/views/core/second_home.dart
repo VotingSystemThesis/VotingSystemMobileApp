@@ -59,6 +59,7 @@ class _SecondHomeState extends State<SecondHome> {
                               itemCount: elections.length,
                               itemBuilder: (context, index) {
                                 return SelectVotingCard(
+                                  electionsBloc: electionsBloc,
                                   election: elections[index],
                                   isClickeable: true,
                                 );

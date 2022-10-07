@@ -1,14 +1,19 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:votingsystem/core/bloc/electionsBloc.dart';
 import 'package:votingsystem/models/election.dart';
 import 'package:votingsystem/router/routes.dart';
 import 'package:votingsystem/utils/utils.dart';
 
 class SelectVotingCard extends StatelessWidget {
   Election election;
+  ElectionsBloc? electionsBloc;
   bool isClickeable = false;
-  SelectVotingCard({required this.election, this.isClickeable = false});
+  SelectVotingCard(
+      {required this.election,
+      this.isClickeable = false,
+      required this.electionsBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,10 @@ class SelectVotingCard extends StatelessWidget {
       onTap: () {
         if (isClickeable) {
           Utils.mainNavigator.currentState!
-              .pushNamed(routeVotingList, arguments: this.election);
+              .pushNamed(routeVotingList, arguments: this.election)
+              .then((value) {
+            electionsBloc?.getElections();
+          });
         }
       },
       child: Container(

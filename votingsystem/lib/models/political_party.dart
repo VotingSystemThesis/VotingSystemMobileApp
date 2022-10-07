@@ -18,4 +18,12 @@ class PoliticalParty {
       description: json['description'],
       status: json['status'] ?? false,
       creationDate: json['creationDate']);
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'creationDate': creationDate,
+        'status': status,
+      };
 }

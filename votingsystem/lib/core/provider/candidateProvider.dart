@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:votingsystem/models/candidate.dart';
+import 'package:votingsystem/models/voteDto.dart';
 
 class CandidateProvider {
   final String _url = "http://54.232.15.128/candidate";
@@ -33,8 +34,4 @@ class CandidateProvider {
       return [];
     }
   }
-
-  // Future<bool> vote() {
-  //   return ;
-  // }
 }

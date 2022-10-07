@@ -120,9 +120,9 @@ class _LoginPageScanState extends State<LoginPageScan>
   void authenticateBarcode() async {
     String barcodeScanRes;
     try {
-      // barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-      //     '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      barcodeScanRes = '72401023';
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      // barcodeScanRes = '72401023';
       UserLoginBloc userBloc = UserLoginBloc();
       isAuthenticated =
           await userBloc.validateDniCodebar(barcodeScanRes, context);
