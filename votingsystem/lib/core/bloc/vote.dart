@@ -7,7 +7,7 @@ import 'package:votingsystem/models/election.dart';
 import 'package:votingsystem/models/voteDto.dart';
 
 class VoteBloc {
-  Future<bool> vote(Candidate candidate, Election voting) async {
+  Future<String> vote(Candidate candidate, Election voting) async {
     UserProvider loginProvier = new UserProvider();
 
     final prefs = await SharedPreferences.getInstance();

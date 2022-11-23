@@ -57,18 +57,64 @@ class _PoliticalPartiesListViewState extends State<PoliticalPartiesListView> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var politicalParties = snapshot.data as List<Election>;
-            return ListView.builder(
-              itemCount: politicalParties.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  height: screenHeight * 0.25,
-                  child: SelectVotingCard(
-                    electionsBloc: null,
-                    election: politicalParties[index],
-                  ),
-                );
-              },
-            );
+            return politicalParties.length > 0
+                ? ListView.builder(
+                    itemCount: politicalParties.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: screenHeight * 0.25,
+                        child: SelectVotingCard(
+                          electionsBloc: null,
+                          election: politicalParties[index],
+                        ),
+                      );
+                    },
+                  )
+                : Expanded(
+                    child: SizedBox(
+                      width: 350,
+                      child: Card(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 150),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        elevation: 3,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.search,
+                                size: 50,
+                              ),
+                              const Text(
+                                "No se encontraron votaciones pasadas",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    loaded = true;
+                                  });
+                                },
+                                child: const Text(
+                                  "Reintentar",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
           } else {
             return Expanded(
               child: SizedBox(

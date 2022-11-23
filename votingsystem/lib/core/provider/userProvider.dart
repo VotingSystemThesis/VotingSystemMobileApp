@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:votingsystem/models/election.dart';
 import 'package:votingsystem/models/loginDto.dart';
+import 'package:votingsystem/models/voteConfirm.dart';
 import 'package:votingsystem/models/voteDto.dart';
 import 'package:votingsystem/models/voter.dart';
 
@@ -71,16 +72,19 @@ class UserProvider {
     }
   }
 
-  Future<bool> vote(VoteDto voteDto) async {
+  Future<String> vote(VoteDto voteDto) async {
     final uri = Uri.parse('$_url/vote');
     var jsonToSend = jsonEncode(voteDto.toJson());
     var response = await http.post(uri,
         body: jsonToSend, headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      return true;
+      VoteConfirm verfiedVoter =
+          VoteConfirm.fromJson(jsonDecode(response.body));
+
+      return verfiedVoter.id.toString();
     } else {
-      return false;
+      return "";
     }
   }
 }

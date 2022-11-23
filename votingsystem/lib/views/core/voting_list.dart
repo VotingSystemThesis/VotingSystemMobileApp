@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:votingsystem/core/bloc/vote.dart';
 import 'package:votingsystem/core/provider/candidateProvider.dart';
 import 'package:votingsystem/models/candidate.dart';
@@ -81,12 +82,12 @@ class _VotingListState extends State<VotingList> {
                   height: 50,
                   onpressed: () async {
                     var response = await VoteBloc().vote(candidate, elect);
-                    if (response) {
+                    if (response.isNotEmpty) {
                       showDialog(
                           context: ctx,
                           builder: (successctx) {
-                            return successDialog(
-                                screenWidth, screenHeight, successctx, ctx);
+                            return successDialog(screenWidth, screenHeight,
+                                successctx, ctx, response);
                           }).then((value) {
                         Utils.mainNavigator.currentState!.pop();
                       });
@@ -118,7 +119,7 @@ class _VotingListState extends State<VotingList> {
     );
   }
 
-  Widget successDialog(screenWidth, screenHeight, successctx, ctx) {
+  Widget successDialog(screenWidth, screenHeight, successctx, ctx, response) {
     return Dialog(
       insetPadding: const EdgeInsets.all(20),
       child: Container(
@@ -133,12 +134,16 @@ class _VotingListState extends State<VotingList> {
               fontSize: 28,
             ),
             const SizedBox(
-              height: 50,
+              height: 40,
             ),
             SizedBox(
-                height: screenHeight * 0.2,
-                child: const Image(
-                  image: AssetImage('assets/correctIcon.png'),
+                height: screenHeight * 0.22,
+                child: Center(
+                  child: QrImage(
+                    data: response,
+                    version: QrVersions.auto,
+                    size: 170.0,
+                  ),
                 )),
             const Expanded(child: SizedBox()),
             GestureDetector(
